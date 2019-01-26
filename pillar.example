@@ -1,0 +1,25 @@
+# vim: ft=yaml
+# Custom Pillar Data for rsnapshot
+
+rsnapshot:
+  enabled: false
+
+  config:
+    snapshot_root: /var/backups
+    
+  servers:
+    web:
+      method: 
+        - backup:
+          path:
+            - root@web:/etc/
+            - root@web:/home/
+            - root@web:/root/
+            - root@web:/usr/local/
+
+      cron:
+        minute: 15       # Default *
+        hour: 1,7,13,19  # Default *
+        daymonth: 10-20  # Default *
+        month: '*'       # Default *
+        dayweek: 2-5     # Default *

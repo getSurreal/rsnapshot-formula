@@ -1,0 +1,7 @@
+# vim: ft=yaml
+# Defaults for rsnapshot
+
+rsnapshot:
+  enabled: false
+  pkg: rsnapshot
+

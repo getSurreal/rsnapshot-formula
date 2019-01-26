@@ -1,0 +1,37 @@
+# vim: ft=yaml
+---
+driver:
+  name: linode
+
+busser:
+  sudo: false
+
+provisioner:
+  name: salt_solo
+  is_file_root: true
+  sudo: false
+  salt_copy_filter:
+    - .kitchen
+    - .git
+    - .vagrant
+  state_top:
+    base:
+      "*":
+        - test.mockup
+        - rsnapshot
+
+platforms:
+  - name: debian_jessie
+
+suites:
+  - name: default
+
+  - name: custom
+    provisioner:
+      pillars-from-files:
+        rsnapshot.sls: pillar.example
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - rsnapshot
