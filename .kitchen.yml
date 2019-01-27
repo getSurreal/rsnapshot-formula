@@ -17,20 +17,16 @@ provisioner:
       "*":
         - test.mockup
         - rsnapshot
+  pillars-from-files:
+    rsnapshot.sls: pillar.example
+  pillars:
+    top.sls:
+      base:
+        "*":
+          - rsnapshot
 
 platforms:
-  - name: bento/debian-8.7
+  - name: ubuntu-16.04
 
 suites:
   - name: default
-
-  - name: custom
-    provisioner:
-      pillars-from-files:
-        rsnapshot.sls: pillar.example
-      pillars:
-        top.sls:
-          base:
-            "*":
-              - rsnapshot
-

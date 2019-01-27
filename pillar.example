@@ -42,7 +42,6 @@ rsnapshot:
         - 'backup	root@db.example.com:/etc/	db/'  
       cron:
         daily:
-        daily:
           enabled: True
           minute: 40
           hour: 1
