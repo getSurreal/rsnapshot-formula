@@ -2,24 +2,33 @@
 # Custom Pillar Data for rsnapshot
 
 rsnapshot:
-  enabled: false
-
   config:
     snapshot_root: /var/backups
     
   servers:
     web:
-      method: 
-        - backup:
-          path:
-            - root@web:/etc/
-            - root@web:/home/
-            - root@web:/root/
-            - root@web:/usr/local/
-
+      enabled: True
+      items:    # Important: ensure the tab character is used to separate values
+        - 'backup	root@web:/etc/	/'
+        - 'backup	root@web:/home/	/'
+        - 'backup	root@web:/root/	/'
+        - 'backup	root@web:/usr/local/	/'
       cron:
-        minute: 15       # Default *
-        hour: 1,7,13,19  # Default *
-        daymonth: 10-20  # Default *
-        month: '*'       # Default *
-        dayweek: 2-5     # Default *
+        minute: random
+        hour: 2
+        daymonth: '*'
+        month: '*'
+        dayweek: 2-5
+
+    db:
+      enabled: True
+      items:   # Important: ensure the tab character is used to separate values
+        - 'backup_exec	ssh root@db	"mysqldump -A > /var/db/dump/mysql.sql"'
+        - 'backup	root@db:/var/db/dump/	example.com/'
+        - 'backup	root@db:/etc/	/'
+      cron:
+        minute: random
+        hour: 2
+        daymonth: '*'
+        month: '*'
+        dayweek: '*'
