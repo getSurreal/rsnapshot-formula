@@ -1,18 +1,16 @@
 # vim: ft=yaml
 # Custom Pillar Data for rsnapshot
 
-rsnapshot:
-  config:
-    snapshot_root: /var/backups
-    
+rsnapshot:    
   servers:
+# Backups here are grouped by the server first then daily.x only contains this individual server
     web:
       enabled: True
+      snapshot_root: /var/backups/web
       items:    # Important: ensure the tab character is used to separate values
-        - 'backup	root@web:/etc/	/'
-        - 'backup	root@web:/home/	/'
-        - 'backup	root@web:/root/	/'
-        - 'backup	root@web:/usr/local/	/'
+        - 'backup	root@web:/etc/	./'
+        - 'backup	root@web:/home/	./'
+        - 'backup	root@web:/root/	./'
       cron:
         daily:
           enabled: True
@@ -36,11 +34,13 @@ rsnapshot:
           month: '*'
           dayweek: '*'          
 
+# Backups here are grouped by the backup run first.  i.e. daily.x will have a directory for all servers in it
     db:
+      snapshot_root: /var/backups
       items:   # Important: ensure the tab character is used to separate values
         - 'backup_exec	ssh root@db	"mysqldump -A > /var/db/dump/mysql.sql"'
         - 'backup	root@db:/var/db/dump/	example.com/'
-        - 'backup	root@db:/etc/	/'
+        - 'backup	root@db:/etc/	db/'  
       cron:
         daily:
           enabled: True

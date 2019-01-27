@@ -20,14 +20,14 @@ rsnapshot_log_directory:
     - group: root
     - makedirs: True
 
-rsnapshot_snapshot_directory:
+{% for server,args in pillar['rsnapshot']['servers'].items()  %}
+rsnapshot_{{ server }}_snapshot_directory:
   file.directory:
-    - name: {{ pillar['rsnapshot']['config']['snapshot_root'] }}
+    - name: {{ args.snapshot_root }}
     - user: root
     - group: root
     - makedirs: True
 
-{% for server,args in pillar['rsnapshot']['servers'].items()  %}
 rsnapshot_{{ server }}_config:
   file.managed:
     - name: /etc/rsnapshot/conf.d/rsnapshot-{{ server }}.conf
@@ -36,7 +36,6 @@ rsnapshot_{{ server }}_config:
     - group: root
     - mode: 0600
     - template: jinja
-    - config: {{ pillar['rsnapshot']['config'] }}
     - server: {{ server }}
 
 {% for job,cron in pillar['rsnapshot']['servers'][server]['cron'].items()  %}
