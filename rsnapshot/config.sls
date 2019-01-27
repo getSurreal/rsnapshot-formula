@@ -22,7 +22,7 @@ rsnapshot_log_directory:
 
 rsnapshot_snapshot_directory:
   file.directory:
-    - name: pillar['rsnapshot']['config']['snapshot_root']
+    - name: {{ pillar['rsnapshot']['config']['snapshot_root'] }}
     - user: root
     - group: root
     - makedirs: True
@@ -39,7 +39,7 @@ rsnapshot_{{ server }}_config:
     - config: {{ pillar['rsnapshot']['config'] }}
     - server: {{ server }}
 
-{% for job,cron in pillar['rsnapshot'][server]['cron'].items()  %}
+{% for job,cron in pillar['rsnapshot']['servers'][server]['cron'].items()  %}
 rsnapshot_{{ server }}_{{ job }}_cron:
 {% if cron.enabled | default(False)  %}
   cron.present:
