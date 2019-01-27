@@ -14,21 +14,38 @@ rsnapshot:
         - 'backup	root@web:/root/	/'
         - 'backup	root@web:/usr/local/	/'
       cron:
-        minute: random
-        hour: 2
-        daymonth: '*'
-        month: '*'
-        dayweek: 2-5
+        daily:
+          enabled: True
+          minute: random
+          hour: 2
+          daymonth: '*'
+          month: '*'
+          dayweek: '*'
+        weekly:
+          enabled: True
+          minute: random
+          hour: 4
+          daymonth: '*'
+          month: '*'
+          dayweek: 0
+        monthly:
+          enabled: True
+          minute: random
+          hour: 6
+          daymonth: 1
+          month: '*'
+          dayweek: '*'          
 
     db:
-      enabled: True
       items:   # Important: ensure the tab character is used to separate values
         - 'backup_exec	ssh root@db	"mysqldump -A > /var/db/dump/mysql.sql"'
         - 'backup	root@db:/var/db/dump/	example.com/'
         - 'backup	root@db:/etc/	/'
       cron:
-        minute: random
-        hour: 2
-        daymonth: '*'
-        month: '*'
-        dayweek: '*'
+        daily:
+          enabled: True
+          minute: random
+          hour: 2
+          daymonth: '*'
+          month: '*'
+          dayweek: '*'
