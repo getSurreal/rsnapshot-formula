@@ -15,23 +15,23 @@ rsnapshot:
           enabled: True
           minute: 30
           hour: 1
-          daymonth: '*'
-          month: '*'
-          dayweek: '*'
+          daymonth: #Empty values default to *
+          month:
+          dayweek:
         weekly:
           enabled: True
           minute: 20
           hour: 1
-          daymonth: '*'
-          month: '*'
+          daymonth:
+          month:
           dayweek: 0
         monthly:
           enabled: True
           minute: 10
           hour: 1
           daymonth: 1
-          month: '*'
-          dayweek: '*'      
+          month:
+          dayweek:      
 
 # Backups here are grouped by the backup run first.  i.e. daily.x will have a directory for all servers in it
     db:
@@ -45,6 +45,6 @@ rsnapshot:
           enabled: True
           minute: 40
           hour: 1
-          daymonth: '*'
-          month: '*'
-          dayweek: '*'
+          daymonth:
+          month:
+          dayweek:
