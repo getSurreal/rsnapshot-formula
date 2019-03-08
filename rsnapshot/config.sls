@@ -43,11 +43,21 @@ rsnapshot_{{ server }}_{{ job }}_cron:
 {% if cron.enabled | default(False)  %}
   cron.present:
     - name: /usr/bin/rsnapshot -c /etc/rsnapshot/conf.d/rsnapshot-{{ server }}.conf {{ job }}
-    - minute: u'{{ cron.minute }}'
-    - hour: u'{{ cron.hour }}'
-    - daymonth: u'{{ cron.daymonth }}'
-    - month: u'{{ cron.month }}'
-    - dayweek: u'{{ cron.dayweek }}'
+{% if cron.minute | default(False) %}
+    - minute: {{ cron.minute }}
+{% endif %}
+{% if cron.hour | default(False) %}
+    - hour: {{ cron.hour }}
+{% endif %}
+{% if cron.daymonth | default(False) %}
+    - daymonth: {{ cron.daymonth }}
+{% endif %}
+{% if cron.month | default(False) %}
+    - month: {{ cron.month }}
+{% endif %}
+{% if cron.dayweek | default(False) %}
+    - dayweek: {{ cron.dayweek }}
+{% endif %}
 {% else %}
   cron.absent:
     - name: /usr/bin/rsnapshot -c /etc/rsnapshot/conf.d/rsnapshot-{{ server }}.conf {{ job }}
